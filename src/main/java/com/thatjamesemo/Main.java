@@ -5,6 +5,7 @@ import com.thatjamesemo.commands.SystemToolsBasic;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
@@ -31,8 +32,7 @@ public class Main {
             }
         }
 
-        LogFile log = new LogFile("12344", "blahh");
-
-
+        LogFile lf = new LogFile(String.valueOf(java.time.LocalDate.now()), "system");
+        lf.logItem("Bot Startup!");
     }
 }
