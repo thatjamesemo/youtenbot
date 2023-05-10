@@ -2,6 +2,7 @@ package com.thatjamesemo;
 
 import com.thatjamesemo.commands.SystemToolsBasic;
 
+import com.thatjamesemo.listeners.MemberJoinListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -23,11 +24,13 @@ public class Main {
         api.awaitReady();
 
         api.addEventListener(new SystemToolsBasic());
+        api.addEventListener(new MemberJoinListener());
 
         for (Guild g : api.getGuilds()) {
             if (g != null) {
                 g.updateCommands().addCommands(
-                        Commands.slash("ping", "Used to test if the bot is alive")
+                        Commands.slash("ping", "Used to test if the bot is alive"),
+                        Commands.slash("restoreconfigs", "Makes sure that every guild has a working guild command. Owner only.")
                 ).queue();
             }
         }
