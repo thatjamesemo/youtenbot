@@ -30,7 +30,8 @@ public class Main {
             if (g != null) {
                 g.updateCommands().addCommands(
                         Commands.slash("ping", "Used to test if the bot is alive"),
-                        Commands.slash("restoreconfigs", "Makes sure that every guild has a working guild command. Owner only.")
+                        Commands.slash("restoreconfigs", "Makes sure that every guild has a working guild command. Owner only."),
+                        Commands.slash("")
                 ).queue();
             }
         }

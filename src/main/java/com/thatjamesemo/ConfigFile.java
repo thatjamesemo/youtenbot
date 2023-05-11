@@ -26,6 +26,11 @@ public class ConfigFile {
         return config.get(option);
     }
 
+    public int getOptionAsInt(String option) {
+        Map<String, Object> config = readConfig();
+        return Integer.parseInt((String) config.get(option));
+    }
+
     // Long.parseLong((String) configFile.getOption("rsvp-channel"));
     public long getOptionAsLong(String option) {
         Map<String, Object> config = readConfig();

@@ -25,6 +25,7 @@ public class GuildCommandsRegister extends ListenerAdapter {
 
         ConfigFile configFile = new ConfigFile(event.getGuild().getIdLong());
 
+        configFile.setOption("welcomer", "0");
         configFile.setOption("welcome-channel", "0");
         configFile.setOption("welcome-message", "Welcome to the server {member}!");
 
