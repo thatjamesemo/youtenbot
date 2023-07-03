@@ -1,11 +1,13 @@
-package com.thatjamesemo;
+package com.thatjamesemo.depend;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConfigFile {
@@ -24,6 +26,12 @@ public class ConfigFile {
     public Object getOption(String option) {
         Map<String, Object> config = readConfig();
         return config.get(option);
+    }
+
+
+    public List<Object> getOptionAsList(String option) {
+        Map<String, Object> config = readConfig();
+        return Arrays.asList(config.get(option));
     }
 
     public int getOptionAsInt(String option) {

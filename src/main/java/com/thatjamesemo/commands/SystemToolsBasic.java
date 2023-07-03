@@ -1,7 +1,6 @@
 package com.thatjamesemo.commands;
 
-import com.thatjamesemo.ConfigFile;
-import com.thatjamesemo.LogFile;
+import com.thatjamesemo.depend.ConfigFile;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -9,8 +8,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class SystemToolsBasic extends ListenerAdapter {
 
@@ -32,9 +29,12 @@ public class SystemToolsBasic extends ListenerAdapter {
 
             if(event.getUser().getIdLong() == Long.parseLong(dotenv.get("OWNER_ID"))) {
                 for(Guild g:event.getJDA().getGuilds()){
-                    Long id = g.getIdLong();
+                    long id = g.getIdLong();
                     ConfigFile cf = new ConfigFile(id);
 
+                    if(cf.getOption("roleperms") == null) {
+                        cf.setOption("roleperms", new Object[]{new Object[]{"0"}, new Object[]{"0"}, new Object[]{"0"}, new Object[]{"0"}, new Object[]{"0"}});
+                    }
                     if (cf.getOption("welcomer") == null) {
                         cf.setOption("welcomer", "0");
                     }

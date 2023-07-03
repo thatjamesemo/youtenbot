@@ -1,4 +1,4 @@
-package com.thatjamesemo;
+package com.thatjamesemo.depend;
 
 import java.io.File;
 import java.io.FileWriter;
