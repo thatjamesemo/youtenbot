@@ -1,13 +1,18 @@
 package com.thatjamesemo.depend;
 
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
 import java.util.List;
 
 public class PermissionChecker {
 
-    public static boolean hasPermissionMember(Long guildId, Member member, int level) {
-        ConfigFile cf = new ConfigFile(guildId);
+    public static boolean hasPermissionMember(Guild guild, Member member, int level) {
+        ConfigFile cf = new ConfigFile(guild.getIdLong());
+
+        if (guild.getOwner() == member) {
+            return true;
+        }
 
         List<String> memberRoles = member.getRoles().stream().map(role -> String.valueOf(role.getIdLong())).toList();
         List<Object> roleperms = cf.getOptionAsList("roleperms");

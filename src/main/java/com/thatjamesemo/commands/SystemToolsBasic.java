@@ -1,6 +1,7 @@
 package com.thatjamesemo.commands;
 
 import com.thatjamesemo.depend.ConfigFile;
+import com.thatjamesemo.depend.GuildCommandsRegister;
 import com.thatjamesemo.depend.PermissionChecker;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -62,8 +63,12 @@ public class SystemToolsBasic extends ListenerAdapter {
             event.deferReply().queue();
             eb.clear();
 
-            if(PermissionChecker.hasPermissionMember(event.getGuild().getIdLong(), event.getMember(), 0)) {
-                eb.setTitle("Permission working");
+            if(PermissionChecker.hasPermissionMember(event.getGuild(), event.getMember(), 0)) {
+                eb.setTitle("Default Config Restored!").setColor(Color.GREEN);
+                eb.setDescription("Restoring the default configuration for your guild. WARNING: You WILL have to set everything back up again. ");
+
+                GuildCommandsRegister.setDefaultConfig(event.getGuild());
+
                 event.getHook().sendMessageEmbeds(eb.build()).queue();
             } else {
                 eb.setTitle("Permission failed");
