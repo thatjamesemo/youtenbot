@@ -1,6 +1,7 @@
 package com.thatjamesemo.commands;
 
 import com.thatjamesemo.depend.ConfigFile;
+import com.thatjamesemo.depend.PermissionChecker;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -57,6 +58,18 @@ public class SystemToolsBasic extends ListenerAdapter {
 
                 event.getHook().sendMessageEmbeds(eb.build()).queue();
             }
+        } else if(event.getName().equals("createdefaultconfig")) {
+            event.deferReply().queue();
+            eb.clear();
+
+            if(PermissionChecker.hasPermissionMember(event.getGuild().getIdLong(), event.getMember(), 0)) {
+                eb.setTitle("Permission working");
+                event.getHook().sendMessageEmbeds(eb.build()).queue();
+            } else {
+                eb.setTitle("Permission failed");
+                event.getHook().sendMessageEmbeds(eb.build()).queue();
+            }
+
         }
     }
 }

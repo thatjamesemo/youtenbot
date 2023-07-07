@@ -1,30 +1,33 @@
 package com.thatjamesemo.depend;
 
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class PermissionChecker {
 
-    public boolean hasPermissionMember(Long guildId, Member member, int level) {
+    public static boolean hasPermissionMember(Long guildId, Member member, int level) {
         ConfigFile cf = new ConfigFile(guildId);
-        int count = 0;
 
-        List<Role> memberRoles = member.getRoles();
+        List<String> memberRoles = member.getRoles().stream().map(role -> String.valueOf(role.getIdLong())).toList();
+        List<Object> roleperms = cf.getOptionAsList("roleperms");
 
-        List<Object[]> roleperms = (List<Object[]>) cf.getOptionAsList("roleperms");
-        while(count <= level) {
-            List<Object> rolesAtLevel = Arrays.asList(roleperms.get(count));
-            for(Object s: rolesAtLevel) {
-                if(memberRoles.contains(s)) {
+        for (int i = 0; i <= level; i++) {
+            List<Object> rolesAtLevel = (List<Object>) roleperms.get(i);
+            for (Object s : rolesAtLevel) {
+                if (memberRoles.contains(s)) {
                     return true;
-                } else {
-                    count += 1;
                 }
             }
         }
         return false;
+    }
+
+    public static List<String> getPermissionRoles(Long guildId, int level) {
+        ConfigFile cf = new ConfigFile(guildId);
+
+        List<Object> roleperms = cf.getOptionAsList("roleperms");
+
+        return (List<String>) roleperms.get(level);
     }
 }

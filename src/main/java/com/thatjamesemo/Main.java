@@ -1,5 +1,6 @@
 package com.thatjamesemo;
 
+import com.thatjamesemo.commands.PermissionListCommands;
 import com.thatjamesemo.commands.SystemToolsBasic;
 
 import com.thatjamesemo.commands.WelcomerCommands;
@@ -34,8 +35,11 @@ public class Main {
         api.awaitReady();
 
         api.addEventListener(new SystemToolsBasic());
+
         api.addEventListener(new MemberJoinListener());
         api.addEventListener(new WelcomerCommands());
+
+        api.addEventListener(new PermissionListCommands());
 
         for (Guild g : api.getGuilds()) {
             if (g != null) {

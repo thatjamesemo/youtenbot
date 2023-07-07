@@ -31,7 +31,12 @@ public class ConfigFile {
 
     public List<Object> getOptionAsList(String option) {
         Map<String, Object> config = readConfig();
-        return Arrays.asList(config.get(option));
+        Object value = config.get(option);
+        if(value instanceof List) {
+            return (List<Object>) value;
+        } else {
+            return null;
+        }
     }
 
     public int getOptionAsInt(String option) {
